@@ -1,6 +1,9 @@
 name: Pack React Project
 on: push
 
+permissions:
+  contents: write
+
 jobs:
   npm-build:
     name: Npm-build Workflow
@@ -8,7 +11,12 @@ jobs:
     steps:
       - name: Load Repo
         uses: actions/checkout@v4
-      - name: Install Dependency
-        run: npm install
-      - name: Project Pack
-        run: npm run build
+      - name: Install Dependency & Project Pack
+        run: |
+          npm install
+          npm run build
+      - name: Deployment
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: build
