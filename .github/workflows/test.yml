@@ -1,22 +1,22 @@
-name: Pack React Project
+name: React CI/CD
 on: push
-
-permissions:
-  contents: write
 
 jobs:
   npm-build:
     name: Npm-build Workflow
     runs-on: ubuntu-latest
     steps:
-      - name: Load Repo
+      - name: 读取仓库内容
         uses: actions/checkout@v4
-      - name: Install Dependency & Project Pack
-        run: |
-          npm install
-          npm run build
-      - name: Deployment
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: 登录DockerHub
+        uses: docker/login-actions@v3
         with:
-          branch: gh-pages
-          folder: build
+          username: ${{secrets.DOCKER_HUB_USERNAME}}
+          password: ${{secrets.DOCKER_HUB_TOKEN}}
+      - name: 构建并推送到DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: mewmew0000/react-app:latest
+
+        
