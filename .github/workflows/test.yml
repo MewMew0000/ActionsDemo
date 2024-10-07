@@ -1,12 +1,14 @@
+name: Pack React Project
 on: push
 
 jobs:
-  job1:
+  npm-build:
+    name: Npm-build Workflow
     runs-on: ubuntu-latest
     steps:
-    - run: pwd
-    - run: ls
-  job2:
-    runs-on: windows-latest
-    steps:
-    - run: node --version
+      - name: Load Repo
+        uses: actions/checkout@v4
+      - name: Install Dependency
+        run: npm install
+      - name: Project Pack
+        run: npm run build
