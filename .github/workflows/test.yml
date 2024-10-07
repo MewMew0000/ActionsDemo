@@ -3,13 +3,13 @@ on: push
 
 jobs:
   npm-build:
-    name: Npm-build Workflow
+    name: Npm-build 工作
     runs-on: ubuntu-latest
     steps:
       - name: 读取仓库内容
         uses: actions/checkout@v4
       - name: 登录DockerHub
-        uses: docker/login-actions@v3
+        uses: docker/login-action@v3
         with:
           username: ${{secrets.DOCKER_HUB_USERNAME}}
           password: ${{secrets.DOCKER_HUB_TOKEN}}
